@@ -8,7 +8,18 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 
 
-function Header({ cartItems }){
+function Header({ cartItems,user, signOut }){
+
+    const getCount = () => {
+        let count = 0;
+        // Loop through all cart items
+        cartItems.forEach((item) => {
+            // add the quantity of the cart item to tota;
+            count += item.product.quantity;
+        })
+
+        return count;
+    }
 
     return (
         <Container>
@@ -37,8 +48,8 @@ function Header({ cartItems }){
 
             <HeaderNavItems>
 
-                <HeaderOption>
-                    <OptionLineOne>Hello, Victor </OptionLineOne>
+                <HeaderOption onClick={signOut}>
+                    <OptionLineOne>Hello, {user.name} </OptionLineOne>
                     <OptionLineTwo>Account & Lists </OptionLineTwo>
                 </HeaderOption>
                 <HeaderOption>
@@ -130,7 +141,8 @@ const HeaderNavItems = styled.div`
 
 `
 const HeaderOption = styled.div`
-    padding: 10px 9px 10px 9px
+    padding: 10px 9px 10px 9px;
+    cursor: pointer;
 `
 const HeaderOptionCart = styled.div`
     display: flex;

@@ -1,15 +1,15 @@
-import { BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
+import { useState, useEffect } from 'react'
 import './App.css';
-import Header from "./Header"
-import Cart from "./Cart"
-import Home from './Home';
+import Header from './Header'
+import Cart from './Cart'
+import Home from './Home'
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import styled from 'styled-components'
-import { useState } from 'react'
-import {db} from './firebase'
-import { useEffect } from "react";
+import { db, auth } from './firebase'
+import Login from './Login'
 
 function App() {
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [cartItems, setCartItems] = useState([]);
 
   const getCartItems = () => {
@@ -18,33 +18,49 @@ function App() {
         id: doc.id,
         product: doc.data()
       }))
+
       setCartItems(tempItems);
     })
   }
 
-  useEffect(()=>{
-    getCartItems();
-  },[])
+  const signOut = () => {
+      auth.signOut().then(()=>{
+          localStorage.removeItem('user')
+          setUser(null)
+      })
+  }
 
-  console.log(cartItems);
+  useEffect(() => {
+    getCartItems();
+  }, [])
+
 
   return (
     <Router>
-      <Container>
-      <Header/>
+      {
+        !user ? (
+          <Login setUser={setUser} />
+        ) : (
+          <Container>
+            <Header 
+              signOut={signOut}
+              user={user} 
+              cartItems={cartItems} />
 
-      <Switch>
+            <Switch>
 
-        <Route path="/cart">
-          <Cart cartItems={cartItems} />
-        </Route>
+              <Route path="/cart">
+                <Cart cartItems={cartItems} />
+              </Route>
 
-        <Route path="/">
-          <Home />
-        </Route>
+              <Route path="/">
+                <Home />
+              </Route>
 
-      </Switch>
-      </Container>
+            </Switch>
+          </Container>
+        )
+      }
     </Router>
   );
 }
@@ -52,5 +68,5 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  background-color: #eaeded;
+  background-color: #EAEDED;
 `
