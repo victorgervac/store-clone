@@ -2,6 +2,7 @@ import React , { useState, useEffect  }from "react"
 import styled from 'styled-components'
 import Product from "./Product"
 import { db } from './firebase'
+import { Grid } from 'semantic-ui-react'
 // import { Input } from "@material-ui/core";
 
 function Home (){
@@ -28,21 +29,24 @@ function Home (){
     return (
             <Container>
                 <Banner>
-                    
                 </Banner>
-                <Content>
-                {
-                    products.map((data)=>(
-                        <Product 
-                            title={data.product.name}
-                            price={data.product.price}
-                            rating={data.product.rating}
-                            image={data.product.image}
-                            id={data.id}
-                        />
-                    ))
-                }
-            </Content>
+                <Content> 
+                <Grid>
+                <Grid.Row columns={3}>
+                    {
+                        products.map((data)=>(
+                            <Product 
+                                title={data.product.name}
+                                price={data.product.price}
+                                rating={data.product.rating}
+                                image={data.product.image}
+                                id={data.id}
+                            />
+                        ))
+                    }
+                    </Grid.Row>
+                </Grid>
+                </Content>
             </Container>
     )
 }
