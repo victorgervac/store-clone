@@ -55,13 +55,15 @@ const Container = styled.div`
     background-color: white;
     z-index: 100;
     flex: 1;
-    padding: 20px;
+    padding: 30px;
     margin: 10px;
     max-height: 400px;
     display: flex;
     flex-direction: column;
+    word-wrap: break-word;
 `
 const Title = styled.span`
+
 `
 const Price = styled .span`
     font-weight: 500;
@@ -78,6 +80,8 @@ const ActionSection = styled.div`
     margin-top: 12px;
     display: grid;
     place-items: center;
+
+    
 `
 const AddToCartButton = styled.button`
     width: 100px;

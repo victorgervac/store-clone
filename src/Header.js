@@ -34,7 +34,7 @@ function Header({ cartItems,user, signOut }){
 
                 <LocationOnIcon/>
                 <HeaderOption>
-                <OptionLineOne className="Header-optionLineOne">Hello,</OptionLineOne>
+                <OptionLineOne className="Header-optionLineOne">Hello, {user.name}</OptionLineOne>
                 <OptionLineTwo className="Header-optionLineOne">Select Your Address</OptionLineTwo>
                 </HeaderOption>
             </HeaderOptionAddress>
